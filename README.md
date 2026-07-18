@@ -11,6 +11,56 @@ My aim is simply to make it easier for myself (and anyone who stumbles across th
 
 👉 [**Browse the full gallery**](https://vimlinuz.github.io/wall-archive/)
 
+## How I use it
+
+put the URL in the inputs of the flake
+
+```nix
+#flake.nix
+    inputs.wall-archive = {
+      url = "github:vimlinuz/wall-archive";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+```
+
+use this walls from inputs of the flake
+
+```nix
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
+let
+  currentDesktop = builtins.getEnv "XDG_CURRENT_DESKTOP";
+  theme = "${config.home.homeDirectory}/.config/rofi/themes/wallpaper-selector.rasi";
+  WALLPAPER_DIR = "${inputs.wall-archive}/wallpapers";
+in {
+    # your script for setting up wallpapers
+}
+```
+
+for script example you can look at mine: [script](https://github.com/vimlinuz/nixos/blob/main/homes/santosh/modules/scripts/rofi-wallpaper-selector.nix)
+which currently uses rofi for picking wallpapers
+
+The home-manager way if you want walls to be in your `$HOME`
+
+```nix
+{ inputs, ... }:
+let
+  wallpapers = "${inputs.wall-archive}/wallpapers";
+in
+{
+  home.file = {
+    "Pictures/wallpaper-archive" = {
+      source = "${wallpapers}";
+      recursive = true;
+    };
+  };
+}
+```
+
 ## License
 
 This is a curated archive of wallpapers collected from various open sources and repositories.
