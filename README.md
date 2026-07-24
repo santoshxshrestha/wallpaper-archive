@@ -11,9 +11,9 @@ My aim is simply to make it easier for myself (and anyone who stumbles across th
 
 👉 [**Browse the full gallery**](https://vimlinuz.github.io/wall-archive/)
 
-## How I use it
+## How to use this
 
-put the URL in the inputs of the flake
+You need to put input into your flake.nix
 
 ```nix
 #flake.nix
@@ -23,15 +23,10 @@ put the URL in the inputs of the flake
     };
 ```
 
-use this walls from inputs of the flake
+Then use this walls from inputs of the flake
 
 ```nix
-{
-  pkgs,
-  config,
-  inputs,
-  ...
-}:
+{ pkgs, config, inputs, ... }:
 let
   currentDesktop = builtins.getEnv "XDG_CURRENT_DESKTOP";
   theme = "${config.home.homeDirectory}/.config/rofi/themes/wallpaper-selector.rasi";
@@ -41,10 +36,10 @@ in {
 }
 ```
 
-for script example you can look at mine: [script](https://github.com/vimlinuz/nixos/blob/main/homes/santosh/modules/scripts/rofi-wallpaper-selector.nix)
-which currently uses rofi for picking wallpapers
+For script example you can look at mine: [script](https://github.com/vimlinuz/nixos/blob/main/homes/santosh/modules/scripts/rofi-wallpaper-selector.nix) \
+Which currently uses rofi for picking wallpapers
 
-The home-manager way if you want walls to be in your `$HOME`
+The home-manager way if you want wallpapers into `$HOME` directory
 
 ```nix
 { inputs, ... }:
